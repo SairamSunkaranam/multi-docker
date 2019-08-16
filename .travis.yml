@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t sairamsun/myImage -f ./client/Dockerfile.dev ./client
+script:
+  - docker run -e CI=true sairamsun/myImage npm run test
+after_success:
+  - docker build -t sairamsun/multi-client ./client
+  - docker build -t sairamsun/multi-nginx ./nginx
+  - docker build -t sairamsun/multi-server ./server
+  - docker build -t sairamsun/multi-worker ./worker
+  #login into GitHub
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin 
+  #push images to DockerHub
+  - docker push sairamsun/multi-client
+  - docker push sairamsun/multi-nginx
+  - docker push sairamsun/multi-server
+  - docker push sairamsun/multi-worker
