@@ -10,10 +10,8 @@ after_success:
   - docker build -t sairamsun/multi-nginx ./nginx
   - docker build -t sairamsun/multi-server ./server
   - docker build -t sairamsun/multi-worker ./worker
-  #login into GitHub
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin 
-  #push images to DockerHub
-  - docker push sairamsun/multi-client
-  - docker push sairamsun/multi-nginx
-  - docker push sairamsun/multi-server
-  - docker push sairamsun/multi-worker
+  - cd ./client | docker push sairamsun/multi-client
+  - cd ./nginx | docker push sairamsun/multi-nginx
+  - cd ./server | docker push sairamsun/multi-server
+  - cd ./worker | docker push sairamsun/multi-worker
