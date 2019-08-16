@@ -13,7 +13,7 @@ after_success:
   #login into GitHub
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin 
   #push images to DockerHub
-  - docker push sairamsun/multi-client1
-  - docker push sairamsun/multi-nginx1
-  - docker push sairamsun/multi-server1
-  - docker push sairamsun/multi-worker1
+  - docker push sairamsun/multi-client
+  - docker push sairamsun/multi-nginx
+  - docker push sairamsun/multi-server
+  - docker push sairamsun/multi-worker
